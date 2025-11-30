@@ -5,7 +5,7 @@ import Note from "../models/note.js";
 export const getAllNotes = async (req, res) => {
     const notes = await Note.find();
     res.status(200).json(notes);
-}
+};
 
 export const getNoteById = async (req, res, next) => {
     const { noteId } = req.params;
@@ -25,7 +25,7 @@ export const createNote = async (req, res) => {
 
 export const deleteNote = async (req, res, next) => {
     const { noteId } = req.params;
-    const note = await Note.findByIdAndDelete({
+    const note = await Note.findOneAndDelete({
         _id: noteId,
     });
     if (!note) {
