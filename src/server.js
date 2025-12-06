@@ -7,7 +7,10 @@ import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { connectMongoDB } from './db/connectMongoDB.js';
 import router from './routes/notesRoutes.js';
-import {logger} from './middleware/logger.js';
+import { logger } from './middleware/logger.js';
+import { errors } from 'celebrate';
+
+
 const app = express();
 app.use(express.json({
   type: ['application/json', 'application/vnd.api+json'],
@@ -22,6 +25,7 @@ app.use(cors());
 app.use(router);
 
 app.use(notFoundHandler);
+app.use(errors());
 app.use(errorHandler);
 
 
