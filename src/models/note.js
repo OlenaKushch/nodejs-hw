@@ -1,4 +1,5 @@
-const { Schema, model } = require("mongoose");
+import { Schema, model } from "mongoose";
+import { TAGS } from "../constants/tags.js";
 
 
 const noteSchema = new Schema(
@@ -9,32 +10,31 @@ const noteSchema = new Schema(
             trim: true,
         },
         content: {
-            typr: String,
+            type: String,
             default: '',
             trim: true,
         },
         tag: {
             type: String,
-            enum: [
-                'Work',
-                'Personal',
-                'Meeting',
-                'Shopping',
-                'Ideas',
-                'Travel',
-                'Finance',
-                'Health',
-                'Important',
-                'Todo',
-            ],
+            enum: TAGS,
             default: 'Todo',
         },
     },
     {
         timestamps: true,
-        versionKey: false.valueOf,
+        
+    }
+);
+
+noteSchema.index(
+    { title: 'text', content: 'text' },
+    {
+        name: 'NoteTextIndex',
+        weights: { title: 10, content: 5 },
+        default_language: 'english',
+
     }
 );
 
 const Note = model('note', noteSchema);
-module.exports = Note;
+export default Note;

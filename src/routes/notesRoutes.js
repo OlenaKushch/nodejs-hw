@@ -1,22 +1,16 @@
-import {Router} from 'express';
-import { createNote, deleteNote, getAllNotes, getNoteById, updateNote } from '../controllers/notesController';
+
+import { Router } from 'express';
+import { createNote, deleteNote, getAllNotes, getNoteById, updateNote } from '../controllers/notesController.js';
+import { celebrate } from 'celebrate';
+import { createNoteSchema, getAllNotesSchema, noteIdSchema, updateNoteSchema } from '../validations/notesValidation.js';
 
 const router = Router();
 
-// router.get('/notes', (req, res) => {
-//     res.status(200).json({ message: "Retrieved all notes", });
-// });
 
-// router.get('/notes/:noteId', (req, res) => {
-//     const { noteId } = req.params;
-//     res.status(200).json({
-//         "message": `Retrieved note with ID: ${noteId}`
-//     });
-// });
-router.get('/notes', getAllNotes);
-router.get('/notes/:noteId', getNoteById);
-router.post('./notes', createNote);
-router.delete('./notes/:noteId', deleteNote);
-router.patch('./notes/:noteId', updateNote)
+router.get('/notes', celebrate(getAllNotesSchema), getAllNotes);
+router.get('/notes/:noteId',celebrate(noteIdSchema), getNoteById);
+router.post('/notes', celebrate(createNoteSchema),createNote);
+router.delete('/notes/:noteId',celebrate(noteIdSchema), deleteNote);
+router.patch('/notes/:noteId', celebrate(updateNoteSchema),updateNote);
 
 export default router;
