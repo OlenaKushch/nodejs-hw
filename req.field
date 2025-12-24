@@ -1,0 +1,8 @@
+{
+  fieldname: 'avatar',            // назва поля у формі
+  originalname: 'download.jpeg',  // оригінальне ім`я файлу на клієнті
+  encoding: '7bit',               // тип кодування передавання
+  mimetype: 'image/jpeg',         // MIME-тип файлу
+  size: 12345,                    // розмір у байтах
+  buffer: <Buffer ff d8 ff ...>   // вміст файлу (Buffer)
+}
